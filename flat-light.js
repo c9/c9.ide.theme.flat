@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     main.consumes = [
-        "Plugin", "layout", "menus"
+        "Plugin", "layout", "menus", "tabinteraction"
     ];
     main.provides = ["theme.flat-light"];
     return main;
@@ -9,14 +9,14 @@ define(function(require, exports, module) {
         var Plugin = imports.Plugin;
         var menus = imports.menus;
         var layout = imports.layout;
+        var tabinteraction = imports.tabinteraction;
         
         /***** Initialization *****/
         
         var plugin = new Plugin("Ajax.org", main.consumes);
         var emit = plugin.getEmitter();
         
-        var oldHeight;
-        var oldMinimizedHeight;
+        var oldHeight, oldMinimizedHeight, oldTabInteraction;
         
         var loaded = false;
         function load() {
@@ -28,15 +28,20 @@ define(function(require, exports, module) {
                     layout.getElement("logobar").setHeight(40);
                     oldHeight = menus.height;
                     oldMinimizedHeight = menus.minimizedHeight;
+                    oldTabInteraction = tabinteraction.plusMargin;
                     
                     menus.height = 40;
                     menus.minimizedHeight = 8;
+                    
+                    tabinteraction.plusMargin = 14;
                 }
                 else if (e.oldTheme == "flat-light") {
                     layout.getElement("logobar").setHeight(31);
                     
                     menus.height = oldHeight;
                     menus.minimizedHeight = oldMinimizedHeight;
+                    
+                    tabinteraction.plusMargin = oldTabInteraction;
                 }
             };
             
