@@ -16,7 +16,7 @@ define(function(require, exports, module) {
         var plugin = new Plugin("Ajax.org", main.consumes);
         var emit = plugin.getEmitter();
         
-        var oldHeight, oldMinimizedHeight, oldTabInteraction, svg;
+        var oldHeight, oldMinimizedHeight, oldTabInteraction, svg, oldTabDelta;
         
         var loaded = false;
         function load() {
@@ -29,11 +29,13 @@ define(function(require, exports, module) {
                     oldHeight = menus.height;
                     oldMinimizedHeight = menus.minimizedHeight;
                     oldTabInteraction = tabinteraction.plusMargin;
+                    oldTabDelta = apf.tabRightDelta;
                     
                     menus.height = 40;
                     menus.minimizedHeight = 8;
                     
                     tabinteraction.plusMargin = 14;
+                    apf.tabRightDelta = 25;
                 }
                 else if (e.oldTheme == "flat-light") {
                     layout.getElement("logobar").setHeight(31);
@@ -42,6 +44,7 @@ define(function(require, exports, module) {
                     menus.minimizedHeight = oldMinimizedHeight;
                     
                     tabinteraction.plusMargin = oldTabInteraction;
+                    apf.tabRightDelta = oldTabDelta;
                 }
                 
                 setGeckoMask();
