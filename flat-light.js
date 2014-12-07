@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
-        "Plugin", "layout", "menus", "tabinteraction"
+        "Plugin", "layout", "menus", "tabinteraction", "settings",
+        "dialog.notification"
     ];
     main.provides = ["theme.flat-light"];
     return main;
@@ -8,8 +9,10 @@ define(function(require, exports, module) {
     function main(options, imports, register) {
         var Plugin = imports.Plugin;
         var menus = imports.menus;
+        var settings = imports.settings;
         var layout = imports.layout;
         var tabinteraction = imports.tabinteraction;
+        var notify = imports["dialog.notification"].show;
         
         /***** Initialization *****/
         
@@ -36,6 +39,8 @@ define(function(require, exports, module) {
                     
                     tabinteraction.plusMargin = 14;
                     apf.tabRightDelta = 25;
+                    
+                    settings.set("user/ace/cursorStyle", "smooth slim");
                 }
                 else if (e.oldTheme == "flat-light") {
                     layout.getElement("logobar").setHeight(31);
@@ -45,6 +50,8 @@ define(function(require, exports, module) {
                     
                     tabinteraction.plusMargin = oldTabInteraction;
                     apf.tabRightDelta = oldTabDelta;
+                    
+                    settings.set("user/ace/cursorStyle", "ace");
                 }
                 
                 setGeckoMask();
@@ -54,6 +61,19 @@ define(function(require, exports, module) {
             
             if (layout.theme == "flat-light")
                 update({ theme: layout.theme });
+            else if (!settings.getBool("user/theme/@ask-flat-light") && false) {
+                var hideThemeSwitch = notify("<div class='c9-theme-switch'>"
+                    + "The <a href='#' target='_blank'>Flat Light Theme</a> is "
+                    + "now available. Click here to switch.</div>", true);
+                
+                document.querySelector(".c9-theme-switch").addEventListener("click", function(){
+                    hideThemeSwitch();
+                    settings.set("user/general/@skin", "flat-light");
+                    layout.updateTheme();
+                }, false);
+                
+                settings.set("user/theme/@ask-flat-light", true);
+            }
             
             setGeckoMask();
         }
