@@ -133,7 +133,9 @@ define(function(require, exports, module) {
         plugin.on("unload", function() {
             loaded = false;
             drawn = false;
-            svg.parentNode.removeChild(svg);
+            
+            if (svg && svg.parentNode)
+                svg.parentNode.removeChild(svg);
         });
         
         /***** Register and define API *****/
