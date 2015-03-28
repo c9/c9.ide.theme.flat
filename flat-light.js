@@ -28,8 +28,8 @@ define(function(require, exports, module) {
             
             var update = function(e){
                 if (e.theme == "flat-light") {
-                    layout.getElement("logobar").setHeight(40);
                     oldHeight = menus.height;
+                    layout.getElement("logobar").setHeight(40);
                     oldMinimizedHeight = menus.minimizedHeight;
                     oldTabInteraction = tabinteraction.plusMargin;
                     oldTabDelta = apf.tabRightDelta;
@@ -43,9 +43,11 @@ define(function(require, exports, module) {
                     settings.set("user/ace/cursorStyle", "smooth slim");
                 }
                 else if (e.oldTheme == "flat-light") {
-                    layout.getElement("logobar").setHeight(31);
-                    
+                    // temporary hack for local version
+                    var oldHeight = window.process ? 27 : 31;
                     menus.height = oldHeight;
+                    layout.getElement("logobar").setHeight(oldHeight);
+                    
                     menus.minimizedHeight = oldMinimizedHeight;
                     
                     tabinteraction.plusMargin = oldTabInteraction;
