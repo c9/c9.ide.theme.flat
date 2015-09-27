@@ -9,7 +9,8 @@
         "url": "http://github.com/c9/c9.ide.theme.flat.git"
     },
     "plugins": {
-        "flat-light": {}
+        "flat-light": {},
+        "flat-dark": {}
     },
     "categories": [
         "core"

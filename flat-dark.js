@@ -3,7 +3,7 @@ define(function(require, exports, module) {
         "Plugin", "layout", "menus", "tabinteraction", "settings",
         "dialog.notification"
     ];
-    main.provides = ["theme.flat-light"];
+    main.provides = ["theme.flat-dark"];
     return main;
 
     function main(options, imports, register) {
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
             loaded = true;
             
             var update = function(e){
-                if (e.theme == "flat-light") {
+                if (e.theme == "flat-dark") {
                     oldHeight = menus.height;
                     layout.getElement("logobar").setHeight(40);
                     oldMinimizedHeight = menus.minimizedHeight;
@@ -42,7 +42,7 @@ define(function(require, exports, module) {
                     
                     settings.set("user/ace/@cursorStyle", "smooth slim");
                 }
-                else if (e.oldTheme == "flat-light") {
+                else if (e.oldTheme == "flat-dark") {
                     // temporary hack for local version
                     var oldHeight = window.process ? 27 : 31;
                     menus.height = oldHeight;
@@ -59,20 +59,20 @@ define(function(require, exports, module) {
             
             layout.on("themeChange", update);
             
-            if (layout.theme == "flat-light")
+            if (layout.theme == "flat-dark")
                 update({ theme: layout.theme });
-            else if (!settings.getBool("user/theme/@ask-flat-light") && false) {
+            else if (!settings.getBool("user/theme/@ask-flat-dark") && false) {
                 var hideThemeSwitch = notify("<div class='c9-theme-switch'>"
-                    + "The <a href='#' target='_blank'>Flat Light Theme</a> is "
+                    + "The <a href='#' target='_blank'>Flat Dark Theme</a> is "
                     + "now available. Click here to switch.</div>", true);
                 
                 document.querySelector(".c9-theme-switch").addEventListener("click", function(){
                     hideThemeSwitch();
-                    settings.set("user/general/@skin", "flat-light");
+                    settings.set("user/general/@skin", "flat-dark");
                     layout.updateTheme();
                 }, false);
                 
-                settings.set("user/theme/@ask-flat-light", true);
+                settings.set("user/theme/@ask-flat-dark", true);
             }
         }
         
@@ -113,7 +113,7 @@ define(function(require, exports, module) {
         });
         
         register(null, {
-            "theme.flat-light": plugin
+            "theme.flat-dark": plugin
         });
     }
 });
