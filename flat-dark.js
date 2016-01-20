@@ -27,7 +27,9 @@ define(function(require, exports, module) {
             loaded = true;
             
             var update = function(e){
-                if (e.theme == "flat-dark") {
+                var fromFlat = /^flat-/.test(e.oldTheme);
+                var toFlat = /^flat-/.test(e.theme);
+                if (e.theme == "flat-dark" && !fromFlat) {
                     oldHeight = menus.height;
                     layout.getElement("logobar").setHeight(40);
                     oldMinimizedHeight = menus.minimizedHeight;
@@ -42,7 +44,7 @@ define(function(require, exports, module) {
                     
                     settings.set("user/ace/@cursorStyle", "smooth slim");
                 }
-                else if (e.oldTheme == "flat-dark") {
+                else if (e.oldTheme == "flat-dark" && !toFlat) {
                     // temporary hack for local version
                     var oldHeight = window.process ? 27 : 31;
                     menus.height = oldHeight;
