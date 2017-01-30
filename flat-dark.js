@@ -26,7 +26,7 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            var update = function(e){
+            var update = function(e) {
                 var fromFlat = /^flat-/.test(e.oldTheme);
                 var toFlat = /^flat-/.test(e.theme);
                 if (e.theme == "flat-dark" && !fromFlat) {
@@ -68,7 +68,7 @@ define(function(require, exports, module) {
                     + "The <a href='#' target='_blank'>Flat Dark Theme</a> is "
                     + "now available. Click here to switch.</div>", true);
                 
-                document.querySelector(".c9-theme-switch").addEventListener("click", function(){
+                document.querySelector(".c9-theme-switch").addEventListener("click", function() {
                     hideThemeSwitch();
                     settings.set("user/general/@skin", "flat-dark");
                     layout.updateTheme();
